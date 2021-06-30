@@ -1,82 +1,43 @@
+import wordClass
+import controllerClass
+
 import itertools as itls
 import random as rand
+import pandas as pd
 
-class Word:
-    def __init__(self, word):
-        self.__word = word
-        self.__length = len(self.__word)
-        self.__passed = [0] * self.__length
-    
-    def word(self):
-        return self.__word
-    
-    # 単語の任意の要素を返す
-    def index(self, index):
-        return self.__word[index]
-    
-    # 単語の長さを返す
-    def length(self):
-        return self.__length
-    
-    # 入力文字が単語に含まれているか判定する
-    def judge(self, ch):
-        is_passed = 0
+def main():
 
-        for i in self.__word:
-            if ch == i:
-                self.__passed[i] = true
-                is_passed = true
-               
-        if is_passed == true:
-            return true
+    # ゲーム自体の繰り返し
+    while 1:
+
+        # ゲーム中の繰り返し
+        while 1:
+
+            # 出題単語の取得
+            with open('words', 'r') as f:
+                lines = f.readlines()
+                data = rand.choice(lines)
+
+            word = wordClass(data)
+            controller = controllerClass(word)
+            
+            # 文字の入力
+            controller.inputChar()
+            
+            # 設定の更新
+            controller.updateVariables();
+            
+            # 終了判定
+            if controller.isEnd() == True:
+                controller.dispResult()
+                break
         
-        return false
-    
-    # 正解している文字のリストを返す
-    def passed(self, index):
-        return list(itls.compress(self.__word, self.__passed))
-#----------------------------------------------------------------
+        if controller.isContinue() == False:
+            del word
+            del controller
 
-class Controller:
-    def __init__(self):
-        self.remain = 6
-        self.inputCount = 0
-        self.isGameClear = false
-        self.isContinue = false
-        self.usedChar[]
-
-    #def disp()
+            break
 
 
-while True:
-    # 出題単語の取得
-    with open('words', 'r') as f:
-        lines = f.readlines()
-        data = rand.choice(lines)
-    
-    word = Word(data)
-
-    while(#残り回数が0でない&&ゲームクリアしてない
-            ):
-        #disp
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+if __name__ == "__main__":
+    main()
