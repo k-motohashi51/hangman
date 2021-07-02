@@ -1,5 +1,5 @@
-import wordClass
-import controllerClass
+from pkg import wordClass
+from pkg import controllerClass
 
 import itertools as itls
 import random as rand
@@ -18,8 +18,10 @@ def main():
                 lines = f.readlines()
                 data = rand.choice(lines)
 
-            word = wordClass(data)
-            controller = controllerClass(word)
+            print(data)
+
+            word = wordClass.wordClass(data)
+            controller = controllerClass.controllerClass(word)
             
             # 文字の入力
             controller.inputChar()

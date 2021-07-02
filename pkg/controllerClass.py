@@ -1,24 +1,24 @@
 class controllerClass:
 
-    def __init__(self, word):
-        self.remain = 6             # 残り入力可能回数
-        self.inputCount = 0         # 入力した回数
-        self.isGameClear = False    # ゲームクリアしたかどうか
-        self.usedChar = []          # 既入力文字リスト
-        word = word                 # wordクラス
+    def __init__(self, wc):
+        self.__remain = 6             # 残り入力可能回数
+        self.__inputCount = 0         # 入力した回数
+        self.__isGameClear = False    # ゲームクリアしたかどうか
+        self.__usedChar = []          # 既入力文字リスト
+        self.__wc = wc                 # wordクラス
     
     # ゲーム中の表示 
     def disp(self):
         print("単語：" + str(word.passed()))
         
         print("使用済み文字：", end = "")
-        for i in self.usedChar:
+        for i in self.__usedChar:
             if i != None:
                 print(i)
         print("\n")
 
         print("残り回数:", end = "")
-        print(self.remain)
+        print(self.__remain)
 
     # 推測文字を入力する
     def inputChar(self):
@@ -33,11 +33,11 @@ class controllerClass:
     
     # 入力文字が正解/不正解のときの各種変数更新する
     def updateVariables(self):
-        if word.judge(self.__inputWord) == False:
-            remain -= 1
+        if self.__wc.judge(self.__inputChar) == False:
+            self.__remain -= 1
         
-        inputCount += 1
-        self.usedChar.append(self.__inputWord)
+        self.__inputCount += 1
+        self.__usedChar.append(self.__inputChar)
  
     def isEnd(self):
         #TODO 終了判定
