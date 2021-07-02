@@ -25,9 +25,14 @@ def main():
             
             # 文字の入力
             controller.inputChar()
+
+            # 文字の判定
+            a = controller.judgeInputChar()
+
+            print(a)
             
             # 設定の更新
-            controller.updateVariables();
+            controller.updateVariables(a);
             
             # 終了判定
             if controller.isEnd() == True:

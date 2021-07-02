@@ -6,6 +6,7 @@ class controllerClass:
         self.__isGameClear = False    # ゲームクリアしたかどうか
         self.__usedChar = []          # 既入力文字リスト
         self.__wc = wc                 # wordクラス
+        self.__inputC = None
     
     # ゲーム中の表示 
     def disp(self):
@@ -23,21 +24,39 @@ class controllerClass:
     # 推測文字を入力する
     def inputChar(self):
         print("文字を入力してください:", end = "")
-        self.__inputChar = input()
+        self.__inputC = input()
 
-        print(self.__inputChar)
-        #judgeInput()
+        if self.__judgeInput() == False:
+            self.inputChar()
     
     # 入力文字が条件を満たしているか判定する
-    #def judgeInput():
+    def __judgeInput(self):
+        if len(self.__inputC) > 1:
+            print("文字数超過")
+            return False
+        
+        if self.__inputC < 'a' or 'z' < self.__inputC:
+            print("予期されていない文字")
+            return False
+
+        for i in self.__usedChar:
+            if i == self.__inputC:
+                print("既に入力されている")
+                return False
+
+        return True
+
+    def judgeInputChar(self):
+        return self.__wc.judge(self.__inputC)
+        # TODO なんか全部Falseが返る
     
     # 入力文字が正解/不正解のときの各種変数更新する
-    def updateVariables(self):
-        if self.__wc.judge(self.__inputChar) == False:
+    def updateVariables(self, isRight):
+        if self.__wc.judge(self.__inputC) == False:
             self.__remain -= 1
         
         self.__inputCount += 1
-        self.__usedChar.append(self.__inputChar)
+        self.__usedChar.append(self.__inputC)
  
     def isEnd(self):
         #TODO 終了判定
