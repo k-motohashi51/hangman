@@ -1,3 +1,5 @@
+import readchar as rc
+
 class controllerClass:
 
     def __init__(self, wc):
@@ -29,8 +31,8 @@ class controllerClass:
 
     # 推測文字を入力する
     def input(self):
-        print("文字を入力してください:", end = "")
-        self.__inputChar = input()
+        print("文字を入力してください")
+        self.__inputChar = str(rc.readkey())
 
         if self.__judgeInput() == False:
             self.input()

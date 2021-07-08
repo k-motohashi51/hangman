@@ -8,10 +8,7 @@ def main():
     # ゲーム自体の繰り返し
     while 1:
 
-        # 出題単語の取得
-        with open('words', 'r') as f:
-            lines = f.readlines()
-            data = rand.choice(lines)
+        data = getWord()
 
         print(data) # 完成版は消す
 
@@ -44,6 +41,36 @@ def main():
             del word
             del controller
             break
+
+
+# 出題単語の取得
+def getWord():
+
+    while(1):
+        print("~~~モード選択~~~")
+        print("通常の出題\t(1)")
+        print("弱点克服モード(2)\n>")
+
+        playMode = input()
+
+        if int(playMode) == 1:
+            print("単語帳ファイル名>", end = "")
+            file = input()
+            break
+        
+        elif playMode == 2:
+            print("弱点克服モードです")
+            file = 'weak.txt'
+            break
+
+        else:
+            print("予期しない入力")
+        
+    with open(file, 'r') as f:
+        lines = f.readlines()
+        data = rand.choice(lines)
+
+    return data
 
 
 if __name__ == "__main__":
