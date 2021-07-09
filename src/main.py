@@ -1,9 +1,15 @@
-from pkg import wordClass
-from pkg import controllerClass
+import sys
+sys.path.append("../pkg")
+
+import wordClass as wc
+import controllerClass as cc
+import incorrectWordsClass as icwc
 
 import random as rand
 
 def main():
+
+    icWords = icwc.incorrectWordsClass()
 
     # ゲーム自体の繰り返し
     while 1:
@@ -12,8 +18,8 @@ def main():
 
         print(data) # 完成版は消す
 
-        word = wordClass.wordClass(data)
-        controller = controllerClass.controllerClass(word)
+        word = wc.wordClass(data)
+        controller = cc.controllerClass(word, icWords)
 
         # ゲーム中の繰り返し
         while 1:
@@ -58,7 +64,7 @@ def getWord():
             file = input()
             break
         
-        elif playMode == 2:
+        elif int(playMode) == 2:
             print("弱点克服モードです")
             file = 'weak.txt'
             break

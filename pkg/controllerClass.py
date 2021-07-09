@@ -2,13 +2,14 @@ import readchar as rc
 
 class controllerClass:
 
-    def __init__(self, wc):
-        self.__remain = 6             # 残り入力可能回数
-        self.__inputCount = 0         # 入力した回数
-        self.__isGameClear = False    # ゲームクリアしたかどうか
-        self.__usedChar = []          # 既入力文字リスト
-        self.__wc = wc                # wordクラス
-        self.__inputChar = None
+    def __init__(self, wc, icwc):
+        self.__inputChar = None     # 入力文字
+        self.__usedChar = []        # 既入力文字リスト
+        self.__remain = 6           # 残り入力可能回数
+        self.__inputCount = 0       # 入力した回数
+        self.__isGameClear = False  # ゲームクリアしたかどうか
+        self.__wc = wc              # wordクラス
+        self.__icwc = icwc       # incorrectWordsクラス
     
     # ゲーム中の表示 
     def disp(self):
@@ -69,6 +70,7 @@ class controllerClass:
     # ゲーム終了条件を満たしているか判定する
     def isEnd(self):
         if self.__remain == 0:
+            self.__addIncorrectWord(self.__wc.word())
             return True
             
         if all(self.__wc.passed()) == True:
@@ -76,17 +78,24 @@ class controllerClass:
             return True
 
         return False
-
+    
+    # 結果を表示する
     def dispResult(self):
         if self.__isGameClear == True:
             print("正解です\n")
             return
         
         print("残念　正解は" + str(self.__wc.word()))
-
+    
+    # ゲーム続行するか入力させて判定する
     def isContinue(self):
         print("ゲームを続けますか(y/n):", end = "")
         if input() == 'y':
             return True
-
+        
+        self.__icwc.saveWords()
         return False
+
+    # 間違えた単語を保存する
+    def __addIncorrectWord(self, word):
+        self.__icwc.addWord(word)
