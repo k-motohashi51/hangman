@@ -13,19 +13,16 @@ def main():
 
     # ゲーム自体の繰り返し
     while 1:
+        fileName = selectMode()
 
-        data = getWord()
-
-        print(data) # 完成版は消す
+        # 出題単語の取得
+        data = getWord(fileName)
 
         word = wc.wordClass(data)
         controller = cc.controllerClass(word, icWords)
 
         # ゲーム中の繰り返し
         while 1:
-            print("正解", end = '')     # 完成版は消す
-            print(data)                 # 完成版は消す
-            
             # 表示
             controller.disp()
             
@@ -49,29 +46,35 @@ def main():
             break
 
 
-# 出題単語の取得
-def getWord():
+# モード選択する
+def selectMode():
 
-    while(1):
+    while 1:
         print("~~~モード選択~~~")
         print("通常の出題\t(1)")
-        print("弱点克服モード(2)\n>")
-
-        playMode = input()
-
-        if int(playMode) == 1:
+        print("弱点克服モード(2)\n>", end = "")
+    
+        playMode = int(input())
+    
+        if playMode == 1:
             print("単語帳ファイル名>", end = "")
-            file = input()
+            fileName = input()
             break
         
-        elif int(playMode) == 2:
-            print("弱点克服モードです")
-            file = 'weak.txt'
+        elif playMode == 2:
+            print("弱点補強モード")
+            fileName = 'weak.txt'
             break
-
+        
         else:
             print("予期しない入力")
-        
+    
+    return fileName
+
+
+# 出題単語の取得
+def getWord(file):
+    
     with open(file, 'r') as f:
         lines = f.readlines()
         data = rand.choice(lines)

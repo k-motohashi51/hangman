@@ -1,5 +1,3 @@
-import itertools as itls
-
 class wordClass:
 
     def __init__(self, data):

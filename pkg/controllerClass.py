@@ -6,7 +6,6 @@ class controllerClass:
         self.__inputChar = None     # 入力文字
         self.__usedChar = []        # 既入力文字リスト
         self.__remain = 6           # 残り入力可能回数
-        self.__inputCount = 0       # 入力した回数
         self.__isGameClear = False  # ゲームクリアしたかどうか
         self.__wc = wc              # wordクラス
         self.__icwc = icwc       # incorrectWordsクラス
@@ -64,7 +63,6 @@ class controllerClass:
         if isRight == False:
             self.__remain -= 1
         
-        self.__inputCount += 1
         self.__usedChar.append(self.__inputChar)
  
     # ゲーム終了条件を満たしているか判定する
